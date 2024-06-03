@@ -1,26 +1,26 @@
 import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react/dist/ssr'
-import expresso from '../../../../assets/Expresso.svg'
 import { CardContent, CardHeader, Cards, Cart, Flavors, Input, Value } from './style'
+import { Product } from '../../../../context/ProductsContext'
 
-export function Card() {
+export function Card({ name, description, price, image } : Product) {
   return(
     <Cards>
       <CardHeader>
-        <img src={expresso} alt="" />
+        <img src={image} alt="" />
         <Flavors>Tradicional</Flavors>
-        <h6>Expresso Tradicional</h6>
-        <span>O tradicional café feito com água quente e grãos moídos</span>
+        <h6>{name}</h6>
+        <span>{description}</span>
       </CardHeader>
       <CardContent>
         <Value>
           <span>R$</span>
-          <h5>9,90</h5>
+          <h5>{price.toFixed(2)}</h5>
         </Value>
        
         <Input>
-          <button><Plus size={14}/></button>
+          <button><Minus size={14}/></button>          
           <input type="number" min={1} step={1} />
-          <button><Minus size={14}/></button>
+          <button><Plus size={14}/></button>          
         </Input>
         <Cart>
           <span><ShoppingCart size={22} weight='fill'/></span>
