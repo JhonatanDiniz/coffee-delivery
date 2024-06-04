@@ -76,6 +76,7 @@ export const Input = styled.div`
     border: 0;
     cursor: pointer;
     color: ${(props) => props.theme['purple']};
+    background-color: transparent;
   }
 `
 

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 60% 1fr;
+  gap: 2rem;
   margin: 2.5rem auto;
-  justify-content: space-between;
 
   h1{
     margin-bottom: 1rem;
@@ -94,4 +95,98 @@ export const FormaPagamento = styled.span`
     background-color: ${(props)=>props.theme['purple-light']};
     border: 1px solid ${(props)=>props.theme['purple']};
   }
+`
+
+export const Carrinho = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
+
+export const CarrinhoContainer = styled.div`
+  padding: 2.5rem;
+  background-color: ${(props)=>props.theme['base-card']};
+  border-radius: 6px 36px 6px 36px;  
+  button{
+    border: none;
+    background-color: ${(props) => props.theme['yellow-dark']};
+    color: ${(props) => props.theme['white']};
+    padding: 1rem;
+    border-radius: 6px;
+    width: 100%;
+  }
+`
+
+export const Itens = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  hr{
+    color: ${(props) => props.theme['base-button']};
+  }
+
+`
+
+export const CarrinhoContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  span{
+    font-size: 1rem;
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+`
+
+export const InputQtd = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: ${(props) => props.theme['base-button']};
+  
+  input{
+    border: 0;
+    background-color: transparent;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  button{
+    border: 0;
+    cursor: pointer;
+    background-color: transparent;
+    color: ${(props) => props.theme['purple']};
+  }
+`
+
+export const AddRemove = styled.div`
+  display: flex;
+  margin-top: 0.5rem;
+  gap: 1rem;
+
+  button{
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    background: ${(props) => props.theme['base-button']};
+    color: ${(props) => props.theme['base-text']};
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+`
+
+export const Detalhe = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
 `

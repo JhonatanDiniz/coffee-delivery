@@ -1,7 +1,27 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react/dist/ssr";
-import { Container, Content, Form, FormaPagamento, FormaPagamentoContainer, Input, PagamentoContainer, Row1, Row2 } from "./style";
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from "@phosphor-icons/react/dist/ssr";
+import { AddRemove, Carrinho, CarrinhoContainer, CarrinhoContent, Container, Content, Detalhe, Form, FormaPagamento, FormaPagamentoContainer, Input, InputQtd, Itens, PagamentoContainer, Row1, Row2 } from "./style";
+import expresso from '../../assets/Expresso.svg'
+import { useEffect, useState } from "react";
 
 export function Checkout() {
+  const [quantidade, setQuantidade] = useState(1)
+  const price = 9.9
+  const [valor, setValor] = useState(price)
+
+  useEffect(() => {
+    setValor(price * quantidade)   
+  }, [quantidade, price])
+  
+  function handleAddQuantidade(){
+    setQuantidade(quantidade + 1)
+    console.log(price)
+  }
+
+  function handleRemoveQuantidade(){
+    if(quantidade > 0){
+      setQuantidade(quantidade - 1)
+    }
+  }
   return(
     <Container>
       <Content>
@@ -42,9 +62,62 @@ export function Checkout() {
           </FormaPagamentoContainer>
         </PagamentoContainer>
       </Content>
-      <div>
-        carrinho
-      </div>
+
+
+      <Carrinho>
+        <h1>Cafés Selecionados</h1>
+        <CarrinhoContainer>
+          <Itens>
+            <CarrinhoContent>
+              <img src={expresso} alt="" />
+              <div>
+                <span>Expresso Tradicional</span>
+                <AddRemove>
+                  <InputQtd>
+                    <button onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
+                    <span>{quantidade}</span>
+                    <button onClick={handleAddQuantidade}><Plus size={14}/></button>          
+                  </InputQtd>
+                  <button><Trash color="#8047F8" size={22}/> Remover</button>
+                </AddRemove>
+              </div>
+              <h4>R$ {valor.toFixed(2)} </h4>
+            </CarrinhoContent>
+            <hr />
+            <CarrinhoContent>
+              <img src={expresso} alt="" />
+              <div>
+                <span>Expresso Tradicional</span>
+                <AddRemove>
+                  <InputQtd>
+                    <button onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
+                    <span>{quantidade}</span>
+                    <button onClick={handleAddQuantidade}><Plus size={14}/></button>          
+                  </InputQtd>
+                  <button><Trash color="#8047F8" size={22}/> Remover</button>
+                </AddRemove>
+              </div>
+              <h4>R$ {valor.toFixed(2)} </h4>
+            </CarrinhoContent>
+
+          </Itens>
+        
+        
+          <Detalhe>
+            <p>Total de itens</p>
+            <p>R$ 29.70</p>
+          </Detalhe>
+          <Detalhe>
+            <p>Entrega</p>
+            <p>R$ 3.50</p>
+          </Detalhe>
+          <Detalhe>
+            <h3>Total</h3>
+            <h3>R$ 33.20</h3>
+          </Detalhe>
+          <button>CONFIRMAR PEDIDO</button>
+        </CarrinhoContainer>
+      </Carrinho>
     </Container>
   )
 }
