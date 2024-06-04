@@ -2,6 +2,7 @@ import { Cart, Container, HeaderContainer, Location } from "./style";
 
 import Logo from '../../assets/Logo.svg'
 import { MapPin, ShoppingCart } from "@phosphor-icons/react/dist/ssr";
+import { NavLink } from "react-router-dom";
 
 export function Header() {
   return(
@@ -13,7 +14,9 @@ export function Header() {
           Guará, DF
         </Location>
         <Cart>
-          <ShoppingCart size={22} weight="fill"/>
+          <NavLink to="/checkout">
+            <ShoppingCart size={22} weight="fill"/>
+          </NavLink>
         </Cart>
       </Container>
     </HeaderContainer>

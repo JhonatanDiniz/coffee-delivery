@@ -87,4 +87,5 @@ export const Cart = styled.div`
   border-radius: 6px;
   background: ${(props) => props.theme['purple-dark']};
   color: ${(props) => props.theme['base-card']};
+  cursor: pointer;
 `

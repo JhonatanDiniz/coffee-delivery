@@ -121,8 +121,7 @@ const productList: Product[]= [
     price: 9.90,
     image: irlandes
   },
-]
- 
+] 
 
 export const ProductsContext = createContext({
   products: productList,
