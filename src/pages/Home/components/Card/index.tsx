@@ -1,24 +1,26 @@
 import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react/dist/ssr'
 import { CardContent, CardHeader, Cards, Cart, Flavors, Input, Value } from './style'
-import { Product } from '../../../../context/ProductsContext'
-import { useEffect, useState } from 'react'
+import { Product, ProductsContext } from '../../../../context/ProductsContext'
+import { useContext } from 'react'
 
-export function Card({ name, description, price, image } : Product) {
-  const [quantidade, setQuantidade] = useState(1)
-  const [valor, setValor] = useState(price)
+export function Card({id, name, description, image, quantidade } : Product) {
+  // const [quantidade, setQuantidade] = useState(1)
+  // const [valor, setValor] = useState(price)
 
-  useEffect(() => {
-    setValor(price * quantidade)   
-  }, [quantidade, price])
-  
+  // useEffect(() => {
+  //   setValor(price * quantidade)   
+  // }, [quantidade, price])
+
+  const {addQuantidade, removeQuantidade} = useContext(ProductsContext)
+
   function handleAddQuantidade(){
-    setQuantidade(quantidade + 1)
+    const validId = id ?? 0
+    addQuantidade(validId)
   }
 
-  function handleRemoveQuantidade(){
-    if(quantidade > 0){
-      setQuantidade(quantidade - 1)
-    }
+  function handleRemoveQuantidade() {
+    const validId = id ?? 0
+    removeQuantidade(validId)
   }
 
   return(
@@ -32,13 +34,13 @@ export function Card({ name, description, price, image } : Product) {
       <CardContent>
         <Value>
           <span>R$</span>
-          <h5>{valor.toFixed(2)}</h5>
+          <h5>9.90</h5>
         </Value>
        
         <Input>
           <button onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
           <span>{quantidade}</span>
-          <button onClick={handleAddQuantidade}><Plus size={14}/></button>          
+          <button onClick={handleAddQuantidade} ><Plus size={14}/></button>          
         </Input>
         <Cart>
           <span><ShoppingCart size={22} weight='fill'/></span>

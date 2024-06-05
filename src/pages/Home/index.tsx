@@ -18,8 +18,8 @@ export function Home() {
             id={product.id}
             name={product.name}
             description={product.description}
-            price={product.price}
             image={product.image}
+            quantidade={product.quantidade}
           />)        
         }
       </Cards>
