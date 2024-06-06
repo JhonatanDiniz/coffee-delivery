@@ -13,14 +13,7 @@ export function Home() {
       <h1>Nossos Cafés</h1>
       <Cards>
         {products.map((product)=> 
-          <Card 
-            key={product.id} 
-            id={product.id}
-            name={product.name}
-            description={product.description}
-            image={product.image}
-            quantidade={product.quantidade}
-          />)        
+          <Card key={product.id} product={product}/>)        
         }
       </Cards>
     </ContainerHome>

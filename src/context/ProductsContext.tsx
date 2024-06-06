@@ -25,8 +25,8 @@ export interface Product{
 
 interface ProductContextType{
   products: Product[]
-  addQuantidade: (id: number) => void
-  removeQuantidade: (id: number) => void
+  carrinho: Product[]
+  addItem: (product: Product) => void
   
 }
 
@@ -154,23 +154,19 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
     ]
   )
 
-  function addQuantidade(id: number){
-    setProducts(products.map(product => 
-      product.id === id ? {...product, quantidade: (product.quantidade ?? 0) + 1} : product
-    ))
-  }
+  const [carrinho, setCarrinho] = useState<Product[]>([])
 
-  function removeQuantidade(id: number){
-    setProducts(products.map(product =>
-      product.id === id && (product.quantidade ?? 0) > 0 ? {...product, quantidade: (product.quantidade ?? 0) - 1} : product
-    ))
+
+
+  function addItem(product: Product){
+    setCarrinho([...carrinho, {...product}])
   }
 
   return(
     <ProductsContext.Provider value={{
       products,
-      addQuantidade,
-      removeQuantidade
+      carrinho,
+      addItem
     }}>
       {children}
     </ProductsContext.Provider>

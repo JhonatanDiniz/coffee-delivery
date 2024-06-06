@@ -1,27 +1,25 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from "@phosphor-icons/react/dist/ssr";
 import { AddRemove, Carrinho, CarrinhoContainer, CarrinhoContent, Container, Content, Detalhe, Form, FormaPagamento, FormaPagamentoContainer, Input, InputQtd, Itens, PagamentoContainer, Row1, Row2 } from "./style";
-import expresso from '../../assets/Expresso.svg'
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { ProductsContext } from "../../context/ProductsContext";
 
 export function Checkout() {
-  const [quantidade, setQuantidade] = useState(1)
-  const price = 9.9
-  const [valor, setValor] = useState(price)
+  const {addQuantidade, removeQuantidade, carrinho} = useContext(ProductsContext)
 
-  useEffect(() => {
-    setValor(price * quantidade)   
-  }, [quantidade, price])
-  
   function handleAddQuantidade(){
-    setQuantidade(quantidade + 1)
-    console.log(price)
+    carrinho.map(product =>{
+      addQuantidade(product.id ?? 0)
+      console.log('Cliquei no produto de id' + product)
+    })
+
+
   }
 
-  function handleRemoveQuantidade(){
-    if(quantidade > 0){
-      setQuantidade(quantidade - 1)
-    }
-  }
+  // function handleRemoveQuantidade() {
+  //   const validId = id ?? 0
+  //   removeQuantidade(validId)
+  // }
+
   return(
     <Container>
       <Content>
@@ -68,20 +66,39 @@ export function Checkout() {
         <h1>Cafés Selecionados</h1>
         <CarrinhoContainer>
           <Itens>
-            <CarrinhoContent>
+
+            {carrinho.map((product) =>
+              <CarrinhoContent key={product.id}>
+              <img src={product.image} alt="" />
+              <div>
+                <span>{product.name}</span>
+                <AddRemove>
+                  <InputQtd>
+                    <button><Minus size={14}/></button>          
+                    <span>{product.quantidade}</span>
+                    <button onClick={handleAddQuantidade} ><Plus size={14}/></button>          
+                  </InputQtd>
+                  <button><Trash color="#8047F8" size={22}/> Remover</button>
+                </AddRemove>
+              </div>
+              <h4>R$ {product.price}</h4>
+            </CarrinhoContent>                        
+            )}
+
+            {/* <CarrinhoContent>
               <img src={expresso} alt="" />
               <div>
                 <span>Expresso Tradicional</span>
                 <AddRemove>
                   <InputQtd>
-                    <button onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
-                    <span>{quantidade}</span>
-                    <button onClick={handleAddQuantidade}><Plus size={14}/></button>          
+                    <button><Minus size={14}/></button>          
+                    <span>1</span>
+                    <button><Plus size={14}/></button>          
                   </InputQtd>
                   <button><Trash color="#8047F8" size={22}/> Remover</button>
                 </AddRemove>
               </div>
-              <h4>R$ {valor.toFixed(2)} </h4>
+              <h4>R$ 9.90 </h4>
             </CarrinhoContent>
             <hr />
             <CarrinhoContent>
@@ -90,15 +107,15 @@ export function Checkout() {
                 <span>Expresso Tradicional</span>
                 <AddRemove>
                   <InputQtd>
-                    <button onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
-                    <span>{quantidade}</span>
-                    <button onClick={handleAddQuantidade}><Plus size={14}/></button>          
+                    <button><Minus size={14}/></button>          
+                    <span>1</span>
+                    <button><Plus size={14}/></button>          
                   </InputQtd>
                   <button><Trash color="#8047F8" size={22}/> Remover</button>
                 </AddRemove>
               </div>
-              <h4>R$ {valor.toFixed(2)} </h4>
-            </CarrinhoContent>
+              <h4>R$ 9.90 </h4>
+            </CarrinhoContent> */}
 
           </Itens>
         
