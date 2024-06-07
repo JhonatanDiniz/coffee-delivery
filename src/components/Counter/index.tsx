@@ -9,7 +9,7 @@ interface CounterProduct{
 
 export function Counter({ counterProduct } : CounterProduct){
   const [quantidade, setQuantidade] = useState(counterProduct.quantidade ?? 0)
-  const { addQuantidade } = useContext(ProductsContext)
+  const { addQuantidade, removeQuantidade } = useContext(ProductsContext)
 
   function handleAddQuantidade(){
     counterProduct.id ? setQuantidade(quantidade + 1) : null
@@ -18,6 +18,7 @@ export function Counter({ counterProduct } : CounterProduct){
 
   function handleRemoveQuantidade(){
     counterProduct.id ? setQuantidade( quantidade > 0 ? quantidade - 1 : quantidade) : null
+    removeQuantidade(counterProduct.id ?? 0)
   }
 
   return(
