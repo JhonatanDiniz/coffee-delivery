@@ -27,6 +27,7 @@ interface ProductContextType{
   products: Product[]
   carrinho: Product[]
   addItem: (product: Product) => void
+  addQuantidade: (id: number) => void
   
 }
 
@@ -157,6 +158,14 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
   const [carrinho, setCarrinho] = useState<Product[]>([])
 
 
+  function addQuantidade(id: number){
+    setProducts(products.map((prod) =>{
+      if(prod.id === id){
+        return {...prod, quantidade: (prod.quantidade ?? 0) + 1}
+      }
+      return prod
+    }))
+  }
 
   function addItem(product: Product){
     setCarrinho([...carrinho, {...product}])
@@ -166,7 +175,8 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
     <ProductsContext.Provider value={{
       products,
       carrinho,
-      addItem
+      addItem,
+      addQuantidade
     }}>
       {children}
     </ProductsContext.Provider>

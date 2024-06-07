@@ -1,19 +1,11 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from "@phosphor-icons/react/dist/ssr";
-import { AddRemove, Carrinho, CarrinhoContainer, CarrinhoContent, Container, Content, Detalhe, Form, FormaPagamento, FormaPagamentoContainer, Input, InputQtd, Itens, PagamentoContainer, Row1, Row2 } from "./style";
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "@phosphor-icons/react/dist/ssr";
+import { AddRemove, Carrinho, CarrinhoContainer, CarrinhoContent, Container, Content, Detalhe, Form, FormaPagamento, FormaPagamentoContainer, Input, Itens, PagamentoContainer, Row1, Row2 } from "./style";
 import { useContext } from "react";
 import { ProductsContext } from "../../context/ProductsContext";
+import { Counter } from "../../components/Counter";
 
 export function Checkout() {
-  const {addQuantidade, removeQuantidade, carrinho} = useContext(ProductsContext)
-
-  function handleAddQuantidade(){
-    carrinho.map(product =>{
-      addQuantidade(product.id ?? 0)
-      console.log('Cliquei no produto de id' + product)
-    })
-
-
-  }
+  const {carrinho} = useContext(ProductsContext)
 
   // function handleRemoveQuantidade() {
   //   const validId = id ?? 0
@@ -73,50 +65,13 @@ export function Checkout() {
               <div>
                 <span>{product.name}</span>
                 <AddRemove>
-                  <InputQtd>
-                    <button><Minus size={14}/></button>          
-                    <span>{product.quantidade}</span>
-                    <button onClick={handleAddQuantidade} ><Plus size={14}/></button>          
-                  </InputQtd>
+                  <Counter counterProduct={product}/>
                   <button><Trash color="#8047F8" size={22}/> Remover</button>
                 </AddRemove>
               </div>
               <h4>R$ {product.price}</h4>
             </CarrinhoContent>                        
             )}
-
-            {/* <CarrinhoContent>
-              <img src={expresso} alt="" />
-              <div>
-                <span>Expresso Tradicional</span>
-                <AddRemove>
-                  <InputQtd>
-                    <button><Minus size={14}/></button>          
-                    <span>1</span>
-                    <button><Plus size={14}/></button>          
-                  </InputQtd>
-                  <button><Trash color="#8047F8" size={22}/> Remover</button>
-                </AddRemove>
-              </div>
-              <h4>R$ 9.90 </h4>
-            </CarrinhoContent>
-            <hr />
-            <CarrinhoContent>
-              <img src={expresso} alt="" />
-              <div>
-                <span>Expresso Tradicional</span>
-                <AddRemove>
-                  <InputQtd>
-                    <button><Minus size={14}/></button>          
-                    <span>1</span>
-                    <button><Plus size={14}/></button>          
-                  </InputQtd>
-                  <button><Trash color="#8047F8" size={22}/> Remover</button>
-                </AddRemove>
-              </div>
-              <h4>R$ 9.90 </h4>
-            </CarrinhoContent> */}
-
           </Itens>
         
         

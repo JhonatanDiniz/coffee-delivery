@@ -1,13 +1,21 @@
 import { ShoppingCart } from '@phosphor-icons/react/dist/ssr'
 import { CardContent, CardHeader, Cards, Cart, Flavors, Value } from './style'
-import { Product } from '../../../../context/ProductsContext'
+import { Product, ProductsContext } from '../../../../context/ProductsContext'
 import { Counter } from '../../../../components/Counter'
+import { useContext } from 'react'
 
 interface ProductCard {
   product: Product
 }
 
 export function Card({ product } : ProductCard) {
+  const { addItem } = useContext(ProductsContext)
+
+  function handleAddItem(){
+    addItem(product)
+    console.log(product)
+  }
+
   return(
     <Cards>
       <CardHeader>
@@ -24,7 +32,7 @@ export function Card({ product } : ProductCard) {
 
         <Counter counterProduct={product}/>
 
-        <Cart>
+        <Cart onClick={handleAddItem}>
           <span><ShoppingCart size={22} weight='fill'/></span>
         </Cart>        
       </CardContent>

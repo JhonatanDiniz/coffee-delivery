@@ -141,30 +141,6 @@ export const CarrinhoContent = styled.div`
   }
 `
 
-export const InputQtd = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding: 0.5rem;
-  border-radius: 6px;
-  background: ${(props) => props.theme['base-button']};
-  
-  input{
-    border: 0;
-    background-color: transparent;
-    text-align: center;
-    font-size: 1rem;
-  }
-
-  button{
-    border: 0;
-    cursor: pointer;
-    background-color: transparent;
-    color: ${(props) => props.theme['purple']};
-  }
-`
-
 export const AddRemove = styled.div`
   display: flex;
   margin-top: 0.5rem;
