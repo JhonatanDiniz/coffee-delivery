@@ -27,7 +27,7 @@ export function Card({ product } : ProductCard) {
       <CardContent>
         <Value>
           <span>R$</span>
-          <h5>9.90</h5>
+          <h5>{product.price?.toFixed(2)}</h5>
         </Value>
 
         <Counter counterProduct={product}/>

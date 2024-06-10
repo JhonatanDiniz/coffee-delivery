@@ -20,7 +20,7 @@ export interface Product{
   description: string
   price?: number
   image: string
-  quantidade?: number
+  quantidade: number
 }
 
 interface ProductContextType{
@@ -158,11 +158,13 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
 
   const [carrinho, setCarrinho] = useState<Product[]>([])
 
+  const valueInicial = 9.9
+
 
   function addQuantidade(id: number){
     setProducts(products.map((prod) =>{
       if(prod.id === id){
-        return {...prod, quantidade: (prod.quantidade ?? 0) + 1}
+        return {...prod, quantidade: prod.quantidade + 1, price: valueInicial * (prod.quantidade + 1)}
       }
       return prod
     }))
@@ -171,7 +173,7 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
   function removeQuantidade(id: number){
     setProducts(products.map((prod) =>{
       if(prod.id === id){
-        return {...prod, quantidade: (prod.quantidade ?? 0) - 1}
+        return {...prod, quantidade: prod.quantidade - 1, price: valueInicial * (prod.quantidade - 1)}
       }
       return prod
     }))

@@ -7,11 +7,6 @@ import { Counter } from "../../components/Counter";
 export function Checkout() {
   const {carrinho} = useContext(ProductsContext)
 
-  // function handleRemoveQuantidade() {
-  //   const validId = id ?? 0
-  //   removeQuantidade(validId)
-  // }
-
   return(
     <Container>
       <Content>
@@ -69,7 +64,7 @@ export function Checkout() {
                   <button><Trash color="#8047F8" size={22}/> Remover</button>
                 </AddRemove>
               </div>
-              <h4>R$ {product.price}</h4>
+              <h4>R$ {product.price?.toFixed(2)}</h4>
             </CarrinhoContent>                        
             )}
           </Itens>
