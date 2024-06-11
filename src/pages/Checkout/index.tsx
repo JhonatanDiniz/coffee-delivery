@@ -6,6 +6,11 @@ import { Counter } from "../../components/Counter";
 
 export function Checkout() {
   const {carrinho} = useContext(ProductsContext)
+  const calculateTotal = () =>{
+    return carrinho.reduce((total, product)=> total + product.quantidade * 9.9, 0)
+  }
+
+  const total = calculateTotal()
 
   return(
     <Container>
@@ -72,7 +77,7 @@ export function Checkout() {
         
           <Detalhe>
             <p>Total de itens</p>
-            <p>R$ 29.70</p>
+            <p>R$ {total.toFixed(2)}</p>
           </Detalhe>
           <Detalhe>
             <p>Entrega</p>
@@ -80,7 +85,7 @@ export function Checkout() {
           </Detalhe>
           <Detalhe>
             <h3>Total</h3>
-            <h3>R$ 33.20</h3>
+            <h3>R$ {(total + 3.50).toFixed(2)}</h3>
           </Detalhe>
           <button>CONFIRMAR PEDIDO</button>
         </CarrinhoContainer>

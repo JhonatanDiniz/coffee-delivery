@@ -29,6 +29,8 @@ interface ProductContextType{
   addItem: (product: Product) => void
   addQuantidade: (id: number) => void
   removeQuantidade: (id: number) => void
+  addQuantidadeCarrinho: (id: number) => void
+  removeQuantidadeCarrinho: (id: number) => void
   
 }
 
@@ -179,6 +181,24 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
     }))
   }
 
+  function addQuantidadeCarrinho(id: number){
+    setCarrinho(carrinho.map((prod) =>{
+      if(prod.id === id){
+        return {...prod, quantidade: prod.quantidade + 1, price: valueInicial * (prod.quantidade + 1)}
+      }
+      return prod
+    }))
+  }
+
+  function removeQuantidadeCarrinho(id: number){
+    setCarrinho(carrinho.map((prod) =>{
+      if(prod.id === id){
+        return {...prod, quantidade: prod.quantidade - 1, price: valueInicial * (prod.quantidade - 1)}
+      }
+      return prod
+    }))
+  }
+
   function addItem(product: Product){
     setCarrinho([...carrinho, {...product}])
   }
@@ -189,7 +209,9 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
       carrinho,
       addItem,
       addQuantidade,
-      removeQuantidade
+      removeQuantidade,
+      addQuantidadeCarrinho,
+      removeQuantidadeCarrinho
     }}>
       {children}
     </ProductsContext.Provider>
