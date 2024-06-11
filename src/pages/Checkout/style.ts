@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 60% 1fr;
+  grid-template-columns: 1fr 40rem;
   gap: 2rem;
   margin: 2.5rem auto;
 
@@ -75,7 +75,6 @@ export const PagamentoContainer = styled.div`
 
 export const FormaPagamentoContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   span{
     font-size: 0.75rem;
   }
