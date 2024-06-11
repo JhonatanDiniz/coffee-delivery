@@ -27,6 +27,7 @@ interface ProductContextType{
   products: Product[]
   carrinho: Product[]
   addItem: (product: Product) => void
+  removeItem: (product: Product) => void
   addQuantidade: (id: number) => void
   removeQuantidade: (id: number) => void
   addQuantidadeCarrinho: (id: number) => void
@@ -198,7 +199,7 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
       return prod
     }))
   }
-  
+
   function addItem(product: Product){
     setCarrinho((prevCarrinho)=>{
       const prodExistente = prevCarrinho.find((prod) => prod.id === product.id)
@@ -212,11 +213,18 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
     })
   }
 
+  function removeItem(product: Product){
+    setCarrinho((prevCarrinho)=> {
+      return prevCarrinho.filter((prod)=> prod.id !== product.id)
+    })
+  }
+
   return(
     <ProductsContext.Provider value={{
       products,
       carrinho,
       addItem,
+      removeItem,
       addQuantidade,
       removeQuantidade,
       addQuantidadeCarrinho,

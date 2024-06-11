@@ -1,16 +1,20 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "@phosphor-icons/react/dist/ssr";
 import { AddRemove, Carrinho, CarrinhoContainer, CarrinhoContent, Container, Content, Detalhe, Form, FormaPagamento, FormaPagamentoContainer, Input, Itens, PagamentoContainer, Row1, Row2 } from "./style";
 import { useContext } from "react";
-import { ProductsContext } from "../../context/ProductsContext";
+import { Product, ProductsContext } from "../../context/ProductsContext";
 import { Counter } from "../../components/Counter";
 
 export function Checkout() {
-  const {carrinho} = useContext(ProductsContext)
+  const {carrinho, removeItem} = useContext(ProductsContext)
   const calculateTotal = () =>{
     return carrinho.reduce((total, product)=> total + product.quantidade * 9.9, 0)
   }
 
   const total = calculateTotal()
+
+  function handleRemoveItem(product: Product){
+    removeItem(product)
+  }
 
   return(
     <Container>
@@ -66,7 +70,7 @@ export function Checkout() {
                 <span>{product.name}</span>
                 <AddRemove>
                   <Counter counterProduct={product}/>
-                  <button><Trash color="#8047F8" size={22}/> Remover</button>
+                  <button onClick={()=>handleRemoveItem(product)}><Trash color="#8047F8" size={22}/> Remover</button>
                 </AddRemove>
               </div>
               <h4>R$ {product.price?.toFixed(2)}</h4>
