@@ -198,9 +198,18 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
       return prod
     }))
   }
-
+  
   function addItem(product: Product){
-    setCarrinho([...carrinho, {...product}])
+    setCarrinho((prevCarrinho)=>{
+      const prodExistente = prevCarrinho.find((prod) => prod.id === product.id)
+
+      if(prodExistente){
+        addQuantidadeCarrinho(product.id ?? 0)
+        console.log('Passei aqui')
+        return prevCarrinho
+      }
+      return [...prevCarrinho, {...product}]
+    })
   }
 
   return(
