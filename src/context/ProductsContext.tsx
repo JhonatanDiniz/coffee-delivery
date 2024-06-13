@@ -1,14 +1,9 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useReducer, useState } from "react";
 import { Products } from "../../data.json"
+import { Product, ProductsReducer, valueInicial } from "../reducers/products/reducer";
+import { addQuantityAction, removeQuantityAction } from "../reducers/products/actions";
 
-export interface Product{
-  id?: number,
-  name: string
-  description: string
-  price?: number
-  image: string
-  quantidade: number
-}
+
 
 interface ProductContextType{
   products: Product[]
@@ -29,29 +24,16 @@ interface ProductsContextProviderProps{
 }
 
 export function ProductsContextProvider({ children } : ProductsContextProviderProps) {
-  const [products, setProducts] = useState<Product[]>(Products)
+  const [products, dispatch] = useReducer(ProductsReducer, Products)
 
   const [carrinho, setCarrinho] = useState<Product[]>([])
 
-  const valueInicial = 9.9
-
-
   function addQuantidade(id: number){
-    setProducts(products.map((prod) =>{
-      if(prod.id === id){
-        return {...prod, quantidade: prod.quantidade + 1, price: valueInicial * (prod.quantidade + 1)}
-      }
-      return prod
-    }))
+    dispatch(addQuantityAction(id))
   }
 
   function removeQuantidade(id: number){
-    setProducts(products.map((prod) =>{
-      if(prod.id === id){
-        return {...prod, quantidade: prod.quantidade - 1, price: valueInicial * (prod.quantidade - 1)}
-      }
-      return prod
-    }))
+    dispatch(removeQuantityAction(id))
   }
 
   function addQuantidadeCarrinho(id: number){
