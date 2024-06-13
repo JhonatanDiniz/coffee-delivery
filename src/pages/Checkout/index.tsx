@@ -1,65 +1,99 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "@phosphor-icons/react/dist/ssr";
-import { AddRemove, Carrinho, CarrinhoContainer, CarrinhoContent, Container, Content, Detalhe, Form, FormaPagamento, FormaPagamentoContainer, Input, Itens, PagamentoContainer, Row1, Row2 } from "./style";
+import { AddRemove, CarrinhoContainer, CarrinhoContent, Container, Detalhe, Form, FormEndereco, FormEnderecoHeader, FormaPagamento, FormaPagamentoContainer, Input, Inputs, Itens, PagamentoContainer, PagamentoHeader, SectionOne, SectionTwo} from "./style";
 import { useContext } from "react";
-import { Product, ProductsContext } from "../../context/ProductsContext";
+import { ProductsContext } from "../../context/ProductsContext";
 import { Counter } from "../../components/Counter";
+import { Product } from "../../reducers/products/reducer";
+import { useForm } from "react-hook-form";
 
 export function Checkout() {
   const {carrinho, removeItem} = useContext(ProductsContext)
+  const { register, handleSubmit } = useForm()
+
   const calculateTotal = () =>{
     return carrinho.reduce((total, product)=> total + product.quantidade * 9.9, 0)
   }
 
   const total = calculateTotal()
 
+  function handleSubmitProduct(data: any){
+    console.log(data)
+  }
+
   function handleRemoveItem(product: Product){
     removeItem(product)
   }
 
   return(
-    <Container>
-      <Content>
-        <h1>Complete seu pedido</h1>
-        <Form>
-          <p><MapPinLine color="#C47F17" size={22}/> Endereço da Entrega</p>
-          <span>Informe o endereço onde deseja receber seu pedido</span>
-          <div>
-            <Input type="text" placeholder="Cep" />
-          </div>
-          <Input type="text" placeholder="Rua" />
-          <Row1>
-            <Input type="text" placeholder="Número" />
-            <Input type="text" placeholder="Complemento" />
-          </Row1>
-          <Row2>
-            <Input type="text" placeholder="Bairro" />
-            <Input type="text" placeholder="Cidade" />
-            <Input type="text" placeholder="UF" />
-          </Row2>
-        </Form>
+   <Container>
+    <Form action="">
+      <SectionOne>
+        <h4>Complete seu pedido</h4>
+        <FormEndereco>
+          <FormEnderecoHeader>
+            <p><MapPinLine size={22} color="#C47F17"/>Endereço de Entrega</p>
+            <span>Informe o endereço onde deseja receber seu pedido</span>
+          </FormEnderecoHeader>
+          <Inputs>
+            <div>
+              <Input sizeInputs="md"
+                type="text"
+                placeholder="Cep"
+                {...register('cep')}
+              />
+            </div>
+            <div>
+              <Input sizeInputs="xg"
+                type="text"
+                placeholder="Rua"
+                {...register('rua')}
+              />
+            </div>
+            <div style={{display: 'flex', gap: '0.75rem'}}>
+              <Input sizeInputs="md"
+                type="text"
+                placeholder="Número"
+                {...register('numero')}
+              />
+              <Input sizeInputs="g"
+                type="text"
+                placeholder="Complemento"
+                {...register('complemento')}
+              />
+            </div>
+            <div style={{display: 'flex', gap: '0.75rem'}}>
+              <Input sizeInputs="md"
+                type="text"
+                placeholder="Bairro"
+                {...register('bairro')}
+              />
+              <Input sizeInputs="md"
+                type="text"
+                placeholder="Cidade"
+                {...register('cidade')}
+              />
+              <Input sizeInputs="p"
+                type="text"
+                placeholder="UF"
+                {...register('uf')}
+              />
+            </div>
+          </Inputs>
+        </FormEndereco>
         <PagamentoContainer>
-          <p><CurrencyDollar color="#8047F8"/> Pagamento</p>
-          <span>O pagamento é feito na entrega. Escolha a forma que deseja pagar</span>
+          <PagamentoHeader>
+            <p><CurrencyDollar size={22}/>Pagamento</p>
+            <span>O pagamento é feito na entrega. Escolha a forma que deseja pagar</span>
+          </PagamentoHeader>
           <FormaPagamentoContainer>
-            <FormaPagamento>
-              <CreditCard color="#8047F8" size={22}/> 
-              CARTÃO DE CRÉDITO
-            </FormaPagamento>
-            <FormaPagamento>
-              <Bank color="#8047F8" size={22}/> 
-              CARTÃO DE DÉBITO
-            </FormaPagamento>
-            <FormaPagamento>
-              <Money color="#8047F8" size={22}/> 
-              DINHEIRO
-            </FormaPagamento>
+            <FormaPagamento type="button"><CreditCard size={22} color="#8047F8"/> CARTÃO DE CRÉDITO</FormaPagamento>
+            <FormaPagamento type="button"><Bank size={22} color="#8047F8"/> CARTÃO DE DÉBITO</FormaPagamento>
+            <FormaPagamento type="button"><Money size={22} color="#8047F8"/> DINHEIRO</FormaPagamento>
           </FormaPagamentoContainer>
         </PagamentoContainer>
-      </Content>
-
-
-      <Carrinho>
-        <h1>Cafés Selecionados</h1>
+      </SectionOne>
+      <SectionTwo>
+        <h4>Cafés Selecionados</h4>
         <CarrinhoContainer>
           <Itens>
 
@@ -70,7 +104,7 @@ export function Checkout() {
                 <span>{product.name}</span>
                 <AddRemove>
                   <Counter counterProduct={product}/>
-                  <button onClick={()=>handleRemoveItem(product)}><Trash color="#8047F8" size={22}/> Remover</button>
+                  <button type="button"  onClick={()=>handleRemoveItem(product)}><Trash color="#8047F8" size={22}/> Remover</button>
                 </AddRemove>
               </div>
               <h4>R$ {product.price?.toFixed(2)}</h4>
@@ -91,9 +125,10 @@ export function Checkout() {
             <h3>Total</h3>
             <h3>R$ {(total + 3.50).toFixed(2)}</h3>
           </Detalhe>
-          <button>CONFIRMAR PEDIDO</button>
+          <button type="submit" onSubmit={handleSubmitProduct}>CONFIRMAR PEDIDO</button>
         </CarrinhoContainer>
-      </Carrinho>
-    </Container>
+      </SectionTwo>
+    </Form>
+   </Container>
   )
 }

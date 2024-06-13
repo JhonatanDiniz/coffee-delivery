@@ -1,7 +1,8 @@
 import { Minus, Plus } from "@phosphor-icons/react/dist/ssr";
 import { Input } from "./style";
 import { useContext, useState } from "react";
-import { Product, ProductsContext } from "../../context/ProductsContext";
+import { ProductsContext } from "../../context/ProductsContext";
+import { Product } from "../../reducers/products/reducer";
 
 interface CounterProduct{
   counterProduct: Product
@@ -29,9 +30,9 @@ export function Counter({ counterProduct } : CounterProduct){
 
   return(
     <Input>
-      <button onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
+      <button type="button" onClick={handleRemoveQuantidade}><Minus size={14}/></button>          
       <span>{quantidade}</span>
-      <button onClick={handleAddQuantidade}><Plus size={14}/></button>          
+      <button type="button" onClick={handleAddQuantidade}><Plus size={14}/></button>          
     </Input>
   )
 }
