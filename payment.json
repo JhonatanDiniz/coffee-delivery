@@ -1,0 +1,16 @@
+{
+  "Payments":[
+    {
+      "id": 1,
+      "description": "CARTÃO CRÉDITO"
+    },
+    {
+      "id": 2,
+      "description": "CARTÃO DÉBITO"
+    },
+    {
+      "id": 1,
+      "description": "DINHEIRO"
+    }
+  ]
+}

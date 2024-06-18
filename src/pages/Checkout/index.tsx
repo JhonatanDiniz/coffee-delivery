@@ -1,12 +1,35 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "@phosphor-icons/react/dist/ssr";
+import { CurrencyDollar, MapPinLine, Trash } from "@phosphor-icons/react/dist/ssr";
 import { AddRemove, CarrinhoContainer, CarrinhoContent, Container, Detalhe, Form, FormEndereco, FormEnderecoHeader, FormaPagamento, FormaPagamentoContainer, Input, Inputs, Itens, PagamentoContainer, PagamentoHeader, SectionOne, SectionTwo} from "./style";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProductsContext } from "../../context/ProductsContext";
 import { Counter } from "../../components/Counter";
 import { Product } from "../../reducers/products/reducer";
 import { useForm } from "react-hook-form";
+import { Pagamento } from "./components/FormaPagamento";
+import { Payments } from "../../../payment.json"
+
+export interface PaymentMethodProps{
+  id: number
+  description: string
+}
+
+
+interface Order{
+  Endereco:{
+    cep: string,
+    rua: string,
+    numero: string,
+    complemento: string,
+    bairro: string, 
+    cidade: string,
+    uf: string
+  },
+  produtos: Product[],
+  pagamento: PaymentMethodProps | null
+}
 
 export function Checkout() {
+  const [formPayment, setFormPayment] = useState<PaymentMethodProps | null>(null)
   const {carrinho, removeItem} = useContext(ProductsContext)
   const { register, handleSubmit } = useForm()
 
@@ -14,10 +37,33 @@ export function Checkout() {
     return carrinho.reduce((total, product)=> total + product.quantidade * 9.9, 0)
   }
 
-  const total = calculateTotal()
+  const txEntrega = 3.5
+
+  const totalProduct = calculateTotal()
+
+  const totalOrder = totalProduct + txEntrega
+
+  function handlePayment(payment: PaymentMethodProps){
+    setFormPayment(payment)
+    console.log(payment)
+  }
 
   function handleSubmitProduct(data: any){
-    console.log(data)
+    const order: Order = {
+      Endereco: {
+        cep: data.cep,
+        rua: data.rua,
+        numero: data.numero,
+        complemento: data.complemento,
+        bairro: data.bairro,
+        cidade: data.cidade,
+        uf: data.uf
+      },
+      produtos: carrinho,
+      pagamento: formPayment
+    }
+    
+    console.log(order)
   }
 
   function handleRemoveItem(product: Product){
@@ -26,7 +72,7 @@ export function Checkout() {
 
   return(
    <Container>
-    <Form action="">
+    <Form onSubmit={handleSubmit(handleSubmitProduct)} action="">
       <SectionOne>
         <h4>Complete seu pedido</h4>
         <FormEndereco>
@@ -86,9 +132,13 @@ export function Checkout() {
             <span>O pagamento é feito na entrega. Escolha a forma que deseja pagar</span>
           </PagamentoHeader>
           <FormaPagamentoContainer>
-            <FormaPagamento type="button"><CreditCard size={22} color="#8047F8"/> CARTÃO DE CRÉDITO</FormaPagamento>
-            <FormaPagamento type="button"><Bank size={22} color="#8047F8"/> CARTÃO DE DÉBITO</FormaPagamento>
-            <FormaPagamento type="button"><Money size={22} color="#8047F8"/> DINHEIRO</FormaPagamento>
+            {Payments.map((payment)=>(
+              <Pagamento 
+                key={payment.id}
+                payment={payment}
+                onSelect={handlePayment}              
+              />
+            ))}
           </FormaPagamentoContainer>
         </PagamentoContainer>
       </SectionOne>
@@ -115,7 +165,7 @@ export function Checkout() {
         
           <Detalhe>
             <p>Total de itens</p>
-            <p>R$ {total.toFixed(2)}</p>
+            <p>R$ {totalProduct.toFixed(2)}</p>
           </Detalhe>
           <Detalhe>
             <p>Entrega</p>
@@ -123,7 +173,7 @@ export function Checkout() {
           </Detalhe>
           <Detalhe>
             <h3>Total</h3>
-            <h3>R$ {(total + 3.50).toFixed(2)}</h3>
+            <h3>R$ {totalOrder.toFixed(2)}</h3>
           </Detalhe>
           <button type="submit" onSubmit={handleSubmitProduct}>CONFIRMAR PEDIDO</button>
         </CarrinhoContainer>
