@@ -5,13 +5,14 @@ import { PaymentMethodProps } from "../.."
 
 interface PaymentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     payment: PaymentMethodProps
+    isSelected?: boolean
     onSelect: (payment: any)=> void
 }
 
-export function Pagamento({payment, onSelect, ...props}: PaymentProps){
+export function Pagamento({payment, onSelect, isSelected = false, ...props}: PaymentProps){
   return(
     <div>
-      <FormaPagamento onClick={()=> onSelect(payment)} {...props} type="button"><CreditCard size={22} color="#8047F8"/>{payment.description}</FormaPagamento>
+      <FormaPagamento isSelected={isSelected} onClick={()=> onSelect(payment)} {...props} type="button"><CreditCard size={22} color="#8047F8"/>{payment.description}</FormaPagamento>
     </div>
   )
 }

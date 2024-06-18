@@ -1,5 +1,5 @@
 import { CurrencyDollar, MapPinLine, Trash } from "@phosphor-icons/react/dist/ssr";
-import { AddRemove, CarrinhoContainer, CarrinhoContent, Container, Detalhe, Form, FormEndereco, FormEnderecoHeader, FormaPagamento, FormaPagamentoContainer, Input, Inputs, Itens, PagamentoContainer, PagamentoHeader, SectionOne, SectionTwo} from "./style";
+import { AddRemove, CarrinhoContainer, CarrinhoContent, Container, Detalhe, Form, FormEndereco, FormEnderecoHeader, FormaPagamentoContainer, Input, Inputs, Itens, PagamentoContainer, PagamentoHeader, SectionOne, SectionTwo} from "./style";
 import { useContext, useState } from "react";
 import { ProductsContext } from "../../context/ProductsContext";
 import { Counter } from "../../components/Counter";
@@ -12,7 +12,6 @@ export interface PaymentMethodProps{
   id: number
   description: string
 }
-
 
 interface Order{
   Endereco:{
@@ -136,7 +135,8 @@ export function Checkout() {
               <Pagamento 
                 key={payment.id}
                 payment={payment}
-                onSelect={handlePayment}              
+                onSelect={handlePayment}           
+                isSelected={payment.id === formPayment?.id}   
               />
             ))}
           </FormaPagamentoContainer>
