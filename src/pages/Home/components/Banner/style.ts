@@ -38,7 +38,7 @@ const BACKGROUND_COLOR = {
 } as const
 
 interface BackgroundProps{
-  bcolor: keyof typeof BACKGROUND_COLOR
+  $bcolor: keyof typeof BACKGROUND_COLOR
 }
 
 export const Description = styled.div`
@@ -55,6 +55,6 @@ export const BackgroundColor = styled.div<BackgroundProps>`
   padding-top: 0.2rem;
   align-items: center;
   justify-content: center;
-  background: ${(props) => props.theme[BACKGROUND_COLOR[props.bcolor]]};
+  background: ${(props) => props.theme[BACKGROUND_COLOR[props.$bcolor]]};
   color: ${(propos) => propos.theme['white']}
 `

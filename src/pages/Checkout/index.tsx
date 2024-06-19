@@ -7,22 +7,47 @@ import { Product } from "../../reducers/products/reducer";
 import { useForm } from "react-hook-form";
 import { Pagamento } from "./components/FormaPagamento";
 import { Payments } from "../../../payment.json"
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as zod from 'zod'
 
 
+const enderecoOrderSchema = zod.object({
+  cep: zod.string().min(8, ('Cep deve conter no mínimo 8 caracter')),
+  rua: zod.string(),
+  complemento: zod.string(),
+  numero: zod.string(),
+  bairro: zod.string(),
+  cidade: zod.string(),
+  uf: zod.string()
+})
+
+type EnderecoFormData = zod.infer<typeof enderecoOrderSchema>
 
 export function Checkout() {
   const {carrinho, removeItem, formPayment, submitProduct, payment, totalOrder, totalProduct} = useContext(ProductsContext)
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm<EnderecoFormData>({
+    resolver: zodResolver(enderecoOrderSchema),
+    defaultValues:{
+      cep: '',
+      rua: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      numero: '',
+      uf: ''
+    }
+  })  
 
-  
+  const navigate = useNavigate()
 
   function handlePayment(formPayment: PaymentMethodProps){
     payment(formPayment)
   }
 
-  function handleSubmitProduct(data: any){
+  function handleSubmitProduct(data: EnderecoFormData){
     submitProduct(data)
-   
+    navigate('/success')
   }
 
   function handleRemoveItem(product: Product){
@@ -135,7 +160,7 @@ export function Checkout() {
             <h3>Total</h3>
             <h3>R$ {totalOrder.toFixed(2)}</h3>
           </Detalhe>
-          <button type="submit" onSubmit={handleSubmitProduct}>CONFIRMAR PEDIDO</button>
+          <button type="submit">CONFIRMAR PEDIDO</button>
         </CarrinhoContainer>
       </SectionTwo>
     </Form>

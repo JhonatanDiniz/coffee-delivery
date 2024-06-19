@@ -13,28 +13,28 @@ export function Banner() {
         </Titles>
         <Descriptions>
           <Description>
-            <BackgroundColor bcolor="yellowDark" >
+            <BackgroundColor $bcolor="yellowDark" >
               <span><ShoppingCart /></span>
             </BackgroundColor>            
             <span>Compra simples e segura</span>
           </Description>
 
           <Description>
-            <BackgroundColor bcolor="baseText">
+            <BackgroundColor $bcolor="baseText">
               <span><Package weight="fill"/></span>
             </BackgroundColor>  
             <span>Compra simples e segura</span>
           </Description>
 
           <Description>
-            <BackgroundColor bcolor="yellow">
+            <BackgroundColor $bcolor="yellow">
               <span><Timer weight="fill"/></span>
             </BackgroundColor>  
             <span>Compra simples e segura</span>
           </Description>
 
           <Description>
-            <BackgroundColor bcolor="purple">
+            <BackgroundColor $bcolor="purple">
               <span><Coffee weight="fill"/></span>
             </BackgroundColor>  
             <span>Compra simples e segura</span>

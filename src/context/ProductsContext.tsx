@@ -4,7 +4,7 @@ import { Product, ProductsReducer, valueInicial } from "../reducers/products/red
 import { addQuantityAction, removeQuantityAction } from "../reducers/products/actions";
 
 export interface PaymentMethodProps{
-  id: number
+  id: number | null
   description: string
 }
 
@@ -30,6 +30,7 @@ interface ProductContextType{
   formPayment: PaymentMethodProps | null
   totalOrder: number
   totalProduct: number
+  pedido: Order
   addItem: (product: Product) => void
   removeItem: (product: Product) => void
   addQuantidade: (id: number) => void
@@ -50,6 +51,22 @@ interface ProductsContextProviderProps{
 export function ProductsContextProvider({ children } : ProductsContextProviderProps) {
   const [formPayment, setFormPayment] = useState<PaymentMethodProps | null>(null)
   const [products, dispatch] = useReducer(ProductsReducer, Products)
+  const [pedido, setPedido] = useState<Order>(
+    {
+      Endereco: {
+        cep: '',
+        rua: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        cidade: '',
+        uf: ''
+      },
+      produtos: [],
+      pagamento: null,
+      totalOrder: null
+    }
+  )
 
   const [carrinho, setCarrinho] = useState<Product[]>([])
 
@@ -129,7 +146,7 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
       totalOrder: Number(totalOrder.toFixed(2))
     }
     
-    console.log(order)
+    setPedido(order)
   }
 
   return(
@@ -139,6 +156,7 @@ export function ProductsContextProvider({ children } : ProductsContextProviderPr
       formPayment,
       totalOrder,
       totalProduct,
+      pedido,
       addItem,
       removeItem,
       addQuantidade,
