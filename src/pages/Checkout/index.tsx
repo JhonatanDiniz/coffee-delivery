@@ -1,68 +1,28 @@
 import { CurrencyDollar, MapPinLine, Trash } from "@phosphor-icons/react/dist/ssr";
 import { AddRemove, CarrinhoContainer, CarrinhoContent, Container, Detalhe, Form, FormEndereco, FormEnderecoHeader, FormaPagamentoContainer, Input, Inputs, Itens, PagamentoContainer, PagamentoHeader, SectionOne, SectionTwo} from "./style";
-import { useContext, useState } from "react";
-import { ProductsContext } from "../../context/ProductsContext";
+import { useContext } from "react";
+import { PaymentMethodProps, ProductsContext } from "../../context/ProductsContext";
 import { Counter } from "../../components/Counter";
 import { Product } from "../../reducers/products/reducer";
 import { useForm } from "react-hook-form";
 import { Pagamento } from "./components/FormaPagamento";
 import { Payments } from "../../../payment.json"
 
-export interface PaymentMethodProps{
-  id: number
-  description: string
-}
 
-interface Order{
-  Endereco:{
-    cep: string,
-    rua: string,
-    numero: string,
-    complemento: string,
-    bairro: string, 
-    cidade: string,
-    uf: string
-  },
-  produtos: Product[],
-  pagamento: PaymentMethodProps | null
-}
 
 export function Checkout() {
-  const [formPayment, setFormPayment] = useState<PaymentMethodProps | null>(null)
-  const {carrinho, removeItem} = useContext(ProductsContext)
+  const {carrinho, removeItem, formPayment, submitProduct, payment, totalOrder, totalProduct} = useContext(ProductsContext)
   const { register, handleSubmit } = useForm()
 
-  const calculateTotal = () =>{
-    return carrinho.reduce((total, product)=> total + product.quantidade * 9.9, 0)
-  }
+  
 
-  const txEntrega = 3.5
-
-  const totalProduct = calculateTotal()
-
-  const totalOrder = totalProduct + txEntrega
-
-  function handlePayment(payment: PaymentMethodProps){
-    setFormPayment(payment)
-    console.log(payment)
+  function handlePayment(formPayment: PaymentMethodProps){
+    payment(formPayment)
   }
 
   function handleSubmitProduct(data: any){
-    const order: Order = {
-      Endereco: {
-        cep: data.cep,
-        rua: data.rua,
-        numero: data.numero,
-        complemento: data.complemento,
-        bairro: data.bairro,
-        cidade: data.cidade,
-        uf: data.uf
-      },
-      produtos: carrinho,
-      pagamento: formPayment
-    }
-    
-    console.log(order)
+    submitProduct(data)
+   
   }
 
   function handleRemoveItem(product: Product){
