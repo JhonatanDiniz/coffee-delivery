@@ -41,43 +41,43 @@ export function Checkout() {
           </FormEnderecoHeader>
           <Inputs>
             <div>
-              <Input sizeInputs="md"
+              <Input $sizeInputs="md"
                 type="text"
                 placeholder="Cep"
                 {...register('cep')}
               />
             </div>
             <div>
-              <Input sizeInputs="xg"
+              <Input $sizeInputs="xg"
                 type="text"
                 placeholder="Rua"
                 {...register('rua')}
               />
             </div>
             <div style={{display: 'flex', gap: '0.75rem'}}>
-              <Input sizeInputs="md"
+              <Input $sizeInputs="md"
                 type="text"
                 placeholder="Número"
                 {...register('numero')}
               />
-              <Input sizeInputs="g"
+              <Input $sizeInputs="g"
                 type="text"
                 placeholder="Complemento"
                 {...register('complemento')}
               />
             </div>
             <div style={{display: 'flex', gap: '0.75rem'}}>
-              <Input sizeInputs="md"
+              <Input $sizeInputs="md"
                 type="text"
                 placeholder="Bairro"
                 {...register('bairro')}
               />
-              <Input sizeInputs="md"
+              <Input $sizeInputs="md"
                 type="text"
                 placeholder="Cidade"
                 {...register('cidade')}
               />
-              <Input sizeInputs="p"
+              <Input $sizeInputs="p"
                 type="text"
                 placeholder="UF"
                 {...register('uf')}

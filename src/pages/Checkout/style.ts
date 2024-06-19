@@ -56,11 +56,11 @@ const SIZE_INPUTS = {
 } as const
 
 interface SizeProps{
-  sizeInputs: keyof typeof SIZE_INPUTS
+  $sizeInputs: keyof typeof SIZE_INPUTS
 }
 
 export const Input = styled.input<SizeProps>`
-  width: ${(props)=> SIZE_INPUTS[props.sizeInputs]};
+  width: ${(props)=> SIZE_INPUTS[props.$sizeInputs]};
   height: 2.625rem;
   border-radius: 4px;
   background-color: ${(props)=>props.theme['base-input']};
