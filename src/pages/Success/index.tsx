@@ -18,7 +18,7 @@ export function Success(){
           <Item>
             <Icon bcolor="purple"><MapPin weight="fill"  size={22}/></Icon>
             <div>
-              <p>Entrega em <strong>{pedido.Endereco.rua} e {pedido.Endereco.numero}</strong> {pedido.Endereco.bairro} {pedido.Endereco.cidade} {pedido.Endereco.uf}</p>            
+              <p>Entrega em <strong>{pedido.Endereco.rua} - {pedido.Endereco.numero}</strong> {pedido.Endereco.bairro} {pedido.Endereco.cidade} {pedido.Endereco.uf}</p>            
             </div>
           </Item>
           <Item>
