@@ -13,7 +13,7 @@ import * as zod from 'zod'
 
 
 const enderecoOrderSchema = zod.object({
-  cep: zod.string().min(8, ('Cep deve conter no mínimo 8 caracter')),
+  cep: zod.string(),
   rua: zod.string(),
   complemento: zod.string(),
   numero: zod.string(),
@@ -47,6 +47,7 @@ export function Checkout() {
 
   function handleSubmitProduct(data: EnderecoFormData){
     submitProduct(data)
+    console.log(data)
     navigate('/success')
   }
 
@@ -56,7 +57,7 @@ export function Checkout() {
 
   return(
    <Container>
-    <Form onSubmit={handleSubmit(handleSubmitProduct)} action="">
+    <Form onSubmit={handleSubmit(handleSubmitProduct)}>
       <SectionOne>
         <h4>Complete seu pedido</h4>
         <FormEndereco>

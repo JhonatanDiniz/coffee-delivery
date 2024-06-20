@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { ProductsContext } from "../../context/ProductsContext";
 
 export function Success(){
-  const { pedido} = useContext(ProductsContext)
+  const { pedido } = useContext(ProductsContext)
 
   return(
     <Container>
