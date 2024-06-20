@@ -16,20 +16,20 @@ export function Success(){
         </Header>
         <Detail>
           <Item>
-            <Icon bcolor="purple"><MapPin weight="fill"  size={22}/></Icon>
+            <Icon $bcolor="purple"><MapPin weight="fill"  size={22}/></Icon>
             <div>
               <p>Entrega em <strong>{pedido.Endereco.rua} - {pedido.Endereco.numero}</strong> {pedido.Endereco.bairro} {pedido.Endereco.cidade} {pedido.Endereco.uf}</p>            
             </div>
           </Item>
           <Item>
-            <Icon bcolor="yellow"><Timer weight="fill" size={22}/></Icon>
+            <Icon $bcolor="yellow"><Timer weight="fill" size={22}/></Icon>
             <div>
               <p>Previsão de entrega</p>
               <p><strong>20 min - 30 min</strong></p>
             </div>
           </Item>
           <Item>
-            <Icon bcolor="yellowDark"><CurrencyDollar weight="fill" size={22}/></Icon>
+            <Icon $bcolor="yellowDark"><CurrencyDollar weight="fill" size={22}/></Icon>
             <div>
               <p>Pagamento na entrega</p>
               <p><strong>{pedido.pagamento?.description}</strong></p>

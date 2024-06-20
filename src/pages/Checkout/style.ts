@@ -114,6 +114,7 @@ export const CarrinhoContainer = styled.div`
     padding: 1rem;
     border-radius: 6px;
     width: 100%;
+    cursor: pointer;
   }
 `
 
